@@ -19,6 +19,8 @@ export class DocumentsFormComponent implements OnInit {
   mode: string = '';
   documentId: string | null = null;
   isLoading = false;
+  alertMessage: string | null = null;
+  alertType: 'success' | 'error' | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -68,7 +70,7 @@ export class DocumentsFormComponent implements OnInit {
       error: () => {
         console.error('Erro ao carregar documentos');
         this.isLoading = false;
-        this.showErrorToast('Erro ao carregar documento. Tente novamente.');
+        this.showAlert('Erro ao carregar documento. Tente novamente.', 'error');
       },
     });
   }
@@ -96,7 +98,7 @@ export class DocumentsFormComponent implements OnInit {
     this.isLoading = true;
     this.documentService.createDocument(requestBody).subscribe({
       next: (response) => {
-        this.showSuccessToast("Documento Salvo Com Sucesso!");
+        this.showAlert("Documento Salvo Com Sucesso!", 'success');
         setTimeout(()=>{
           this.router.navigate(['']);
           this.isLoading = false;
@@ -104,7 +106,7 @@ export class DocumentsFormComponent implements OnInit {
       },
       error: (error) => {
         console.error('Erro ao criar documento:', error);
-        this.showErrorToast(error.error.message);
+        this.showAlert(error.error.message, 'error');
         this.isLoading = false;
       },
     });
@@ -118,7 +120,7 @@ export class DocumentsFormComponent implements OnInit {
     this.isLoading = true;
     this.documentService.updateDocument(document.id,requestBody).subscribe({
       next: (response) => {
-        this.showSuccessToast("Documento atualizado com sucesso!");
+        this.showAlert("Documento atualizado com sucesso!",'success');
         setTimeout(()=>{
           this.router.navigate(['']);
           this.isLoading = false;
@@ -126,7 +128,7 @@ export class DocumentsFormComponent implements OnInit {
       },
       error: (error) => {
         console.error('Erro ao atualizar documento:', error);
-        this.showErrorToast(error.error.message);
+        this.showAlert(error.error.message, 'error');
         this.isLoading = false;
       },
     });
@@ -136,22 +138,16 @@ export class DocumentsFormComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  private showErrorToast(message: string): void {
-    this.snackBar.open(message, 'Fechar', {
-      duration: 5000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      panelClass: ['error-toast'],
-    });
+  showAlert(message: string, type: 'success' | 'error'): void {
+    this.alertMessage = message;
+    this.alertType = type;
+    setTimeout(() => {
+      this.clearAlert();
+    }, 5000);
   }
 
-
-  private showSuccessToast(message: string): void {
-    this.snackBar.open(message, 'Fechar', {
-      duration: 5000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      panelClass: ['success-toast'],
-    });
+  clearAlert(): void {
+    this.alertMessage = null;
+    this.alertType = null;
   }
 }

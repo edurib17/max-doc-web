@@ -2,15 +2,18 @@
   <div class="documents-list">
 
     <div class="d-flex align-items-center mb-1 w-100">
-      <div class="me-2">
+      <div class="me-2 flex-grow-1">
         <input id="titleField" class="form-control" type="text" [(ngModel)]="titleFilter" placeholder="Digite o título">
       </div>
-      <select class="form-select mr-3" [value]="phaseSelectFilter" (change)="onPhaseFilterChange($event)">
-        <option value="TODOS"> Todos </option>
-        <option *ngFor="let phase of phaseEnum" [value]="phase">{{ phase }}</option>
-      </select>
-      <div class="ms-2">
-        <input id="acronymField" class="form-control" type="text" [(ngModel)]="acronymFilter" placeholder="Digite a sigla">
+      <div class="ms-2 me-2 flex-grow-1">
+        <input id="acronymField" class="form-control" type="text" [(ngModel)]="acronymFilter"
+          placeholder="Digite a sigla">
+      </div>
+      <div class="me-2" style="flex-shrink: 0; width: 150px;">
+        <select class="form-select" [value]="phaseSelectFilter" (change)="onPhaseFilterChange($event)">
+          <option value="TODOS"> Todos </option>
+          <option *ngFor="let phase of phaseEnum" [value]="phase">{{ phase }}</option>
+        </select>
       </div>
       <button style="background-color:  #1976d2;" class="btn ms-2" (click)="onClickFilter()">
         <i class="bi bi-search" style="color: white;"></i>
@@ -22,6 +25,22 @@
         <i class="bi bi-plus-circle" style="color: white;"></i>
       </button>
     </div>
+
+    <div
+    *ngIf="alertMessage"
+    class="alert alert-dismissible fade show custom-alert w-100 mt-3"
+    [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error'}"
+    role="alert">
+    {{ alertMessage }}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+      (click)="clearAlert()">
+    </button>
+  </div>
+
 
     <table class="table table-bordered mt-3 rounded">
       <thead>
@@ -41,7 +60,8 @@
           <td>{{ document.description }}</td>
           <td>{{ document.acronym }}</td>
           <td>
-            <select class="form-select" [disabled]="document.phase === 'OBSOLETO'" [(ngModel)]="document.phase" (change)="onPhaseChange($event, document)">
+            <select class="form-select" [disabled]="document.phase === 'OBSOLETO'" [(ngModel)]="document.phase"
+              (change)="onPhaseChange($event, document)">
               <option *ngFor="let phase of  getPhasesByDocument(document)" [value]="phase">{{ phase }}</option>
             </select>
           </td>
@@ -53,10 +73,8 @@
               style="cursor: pointer; font-size: 22px; color: #1976d2;" title="Visualizar"></i>
           </td>
           <td class="text-center">
-            <i
-              [class]="document.phase === 'VIGENTE' ? 'bi bi-copy' : 'bi bi-x-octagon text-secondary'"
-              style.cursor="pointer"
-              [title]="document.phase === 'VIGENTE' ? 'Gerar Nova Versão' : 'Ação indisponível'"
+            <i [class]="document.phase === 'VIGENTE' ? 'bi bi-copy' : 'bi bi-x-octagon text-secondary'"
+              style.cursor="pointer" [title]="document.phase === 'VIGENTE' ? 'Gerar Nova Versão' : 'Ação indisponível'"
               (click)="document.phase === 'VIGENTE' ? onCloneDocumentChange(document) : null"
               style="font-size: 22px;  color: #1976d2;">
             </i>

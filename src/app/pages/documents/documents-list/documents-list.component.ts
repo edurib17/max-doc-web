@@ -20,7 +20,8 @@ export class DocumentsListComponent implements OnInit {
   phaseSelectFilter = null;
   titleFilter = '';
   acronymFilter = '';
-
+  alertMessage: string | null = null;
+  alertType: 'success' | 'error' | null = null;
   isLoading = false;
   totalElements = 0;
   pageSize = 10;
@@ -45,7 +46,7 @@ export class DocumentsListComponent implements OnInit {
       },
       error: () => {
         console.error('Erro ao carregar documentos');
-        this.showErrorToast('Erro ao carregar documentos. Tente novamente.');
+        this.showAlert('Erro ao carregar documentos. Tente novamente.', 'error');
         this.isLoading = false;
       },
     });
@@ -82,7 +83,7 @@ export class DocumentsListComponent implements OnInit {
       this.isLoading = true;
       this.documentService.updateDocumentPhase(document.id, newPhase).subscribe({
         next: (response) => {
-          this.showSuccessToast("Documento atualizado com sucesso!");
+          this.showAlert("Documento atualizado com sucesso!", 'success');
           setTimeout(()=>{
             this.phaseSelectFilter = "TODOS"
             this.loadDocuments()
@@ -90,7 +91,7 @@ export class DocumentsListComponent implements OnInit {
         },
         error: (error) => {
           console.error('Erro ao atualizar documento:', error);
-          this.showErrorToast(error.error.message);
+          this.showAlert(error.error.message, 'error');
           this.phaseSelectFilter = "TODOS"
           this.loadDocuments()
         },
@@ -102,7 +103,7 @@ export class DocumentsListComponent implements OnInit {
       this.isLoading = true;
       this.documentService.cloneDocumentById(document.id).subscribe({
         next: (response) => {
-          this.showSuccessToast("Nova Versão gerada com sucesso!");
+          this.showAlert("Nova Versão gerada com sucesso!", 'success');
           setTimeout(()=>{
             this.phaseSelectFilter = "TODOS"
             this.loadDocuments()
@@ -110,7 +111,7 @@ export class DocumentsListComponent implements OnInit {
         },
         error: (error) => {
           console.error('Erro ao gerar nova versão:', error);
-          this.showErrorToast(error.error.message);
+          this.showAlert(error.error.message, 'error');
           this.phaseSelectFilter = "TODOS"
           this.loadDocuments()
         },
@@ -141,25 +142,16 @@ export class DocumentsListComponent implements OnInit {
     return []
   }
 
-  private showErrorToast(message: string): void {
-    this.snackBar.open(
-      message,
-      'Fechar',
-      {
-        duration: 5000,
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
-        panelClass: ['error-toast'],
-      }
-    );
+  showAlert(message: string, type: 'success' | 'error'): void {
+    this.alertMessage = message;
+    this.alertType = type;
+    setTimeout(() => {
+      this.clearAlert();
+    }, 5000);
   }
 
-  private showSuccessToast(message: string): void {
-    this.snackBar.open(message, 'Fechar', {
-      duration: 5000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      panelClass: ['success-toast'],
-    });
+  clearAlert(): void {
+    this.alertMessage = null;
+    this.alertType = null;
   }
 }
