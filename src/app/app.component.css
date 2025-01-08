@@ -1,0 +1,19 @@
+
+.welcome-card{
+  background-color: #1976d2;
+  color: white;
+  font-weight: bold;
+  border-radius: 1px;
+}
+
+.success-toast {
+  background-color: green;
+  color: white;
+  font-weight: bold;
+}
+
+.error-toast {
+  background-color: #f44336;
+  color: white;
+  font-weight: bold;
+}

@@ -1,0 +1,107 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h3>
+        {{
+          this.mode === "create"
+            ? "Cadastro de Documento"
+            : this.mode === "view"
+            ? "Visualizar Documento"
+            : "Editar Documento"
+        }}
+      </h3>
+    </div>
+    <div class="card-body">
+      <div
+        *ngIf="isLoading"
+        class="d-flex justify-content-center align-items-center"
+        style="height: 200px"
+      >
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <form [formGroup]="form" [hidden]="isLoading" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Título</mat-label>
+            <input
+              matInput
+              formControlName="title"
+              placeholder="Digite o título"
+              maxlength="255"
+            />
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Versão</mat-label>
+            <input matInput formControlName="version" disabled="true" />
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Sigla</mat-label>
+            <input
+              matInput
+              formControlName="acronym"
+              placeholder="Digite a sigla"
+              maxlength="10"
+              style="text-transform: uppercase"
+            />
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Fase</mat-label>
+            <input
+              matInput
+              formControlName="phase"
+              placeholder="Digite a sigla"
+              maxlength="10"
+              style="text-transform: uppercase"
+            />
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Descrição</mat-label>
+            <textarea
+              matInput
+              formControlName="description"
+              placeholder="Digite a descrição"
+              rows="6"
+            ></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="d-flex justify-content-end mt-3">
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="onCancel()"
+            class="me-2"
+          >
+            Cancelar
+          </button>
+          <button
+            mat-raised-button
+            [ngStyle]="{
+              'background-color': this.mode === 'view' ? 'gray' : 'green',
+              color: 'white'
+            }"
+            type="submit"
+            [disabled]="this.mode === 'view'"
+          >
+            Salvar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

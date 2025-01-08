@@ -1,0 +1,51 @@
+.documents-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+th {
+  background-color: #1976d2;
+  color: white;
+  font-weight: bold;
+  padding: 10px 10px;
+  text-align: center;
+}
+
+td {
+  padding: 10px 10px;
+  text-align: center;
+  font-size: 15px;
+  align-items: center;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+tr:hover td {
+  background-color: #f1f1f1;
+}
+
+mat-paginator {
+  margin-top: 10px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+mat-progress-spinner {
+  display: block;
+  margin: 0 auto;
+  color: #1976d2;
+}
+
+.pagination-container {
+  width: 100%;
+}

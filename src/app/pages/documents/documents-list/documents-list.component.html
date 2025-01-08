@@ -1,0 +1,85 @@
+<div class="documents-list">
+  <div class="documents-list">
+
+    <div class="d-flex align-items-center mb-1 w-100">
+      <div class="me-2">
+        <input id="titleField" class="form-control" type="text" [(ngModel)]="titleFilter" placeholder="Digite o título">
+      </div>
+      <select class="form-select mr-3" [value]="phaseSelectFilter" (change)="onPhaseFilterChange($event)">
+        <option value="TODOS"> Todos </option>
+        <option *ngFor="let phase of phaseEnum" [value]="phase">{{ phase }}</option>
+      </select>
+      <div class="ms-2">
+        <input id="acronymField" class="form-control" type="text" [(ngModel)]="acronymFilter" placeholder="Digite a sigla">
+      </div>
+      <button style="background-color:  #1976d2;" class="btn ms-2" (click)="onClickFilter()">
+        <i class="bi bi-search" style="color: white;"></i>
+      </button>
+      <button style="background-color:  #1976d2;" class="btn ms-2" (click)="clearFilters()">
+        <i class="bi bi-x-circle-fill" style="color: white;"></i>
+      </button>
+      <button style="background-color:  #1976d2;" class="btn ms-2" (click)="createNewDocument()">
+        <i class="bi bi-plus-circle" style="color: white;"></i>
+      </button>
+    </div>
+
+    <table class="table table-bordered mt-3 rounded">
+      <thead>
+        <tr>
+          <th scope="col">Título</th>
+          <th scope="col">Descrição</th>
+          <th scope="col">Sigla</th>
+          <th scope="col">Fase</th>
+          <th scope="col">Versão</th>
+          <th scope="col">Ação</th>
+          <th scope="col">Gerar Nova Versão</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let document of documents">
+          <td>{{ document.title }}</td>
+          <td>{{ document.description }}</td>
+          <td>{{ document.acronym }}</td>
+          <td>
+            <select class="form-select" [disabled]="document.phase === 'OBSOLETO'" [(ngModel)]="document.phase" (change)="onPhaseChange($event, document)">
+              <option *ngFor="let phase of  getPhasesByDocument(document)" [value]="phase">{{ phase }}</option>
+            </select>
+          </td>
+          <td>{{ document.version }}</td>
+          <td class="text-center">
+            <i *ngIf="document.phase === 'MINUTA'" class="bi bi-pencil" (click)="editDocument(document.id)"
+              style="cursor: pointer; font-size: 22px; color: #1976d2;" title="Editar"></i>
+            <i *ngIf="document.phase !== 'MINUTA'" class="bi bi-eye" (click)="viewDocument(document.id)"
+              style="cursor: pointer; font-size: 22px; color: #1976d2;" title="Visualizar"></i>
+          </td>
+          <td class="text-center">
+            <i
+              [class]="document.phase === 'VIGENTE' ? 'bi bi-copy' : 'bi bi-x-octagon text-secondary'"
+              style.cursor="pointer"
+              [title]="document.phase === 'VIGENTE' ? 'Gerar Nova Versão' : 'Ação indisponível'"
+              (click)="document.phase === 'VIGENTE' ? onCloneDocumentChange(document) : null"
+              style="font-size: 22px;  color: #1976d2;">
+            </i>
+          </td>
+
+        </tr>
+        <tr *ngIf="this.totalElements === 0 && this.isLoading === false">
+          <td colspan="6" class="text-center">Nenhum documento encontrado.</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <div *ngIf="isLoading" class="d-flex justify-content-center align-items-center" style="height: 200px;">
+      <div class="spinner-border" style="color: #1976d2;" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <div class="pagination-container">
+      <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25]"
+        (page)="onPageChange($event)"></mat-paginator>
+    </div>
+
+  </div>
+</div>
