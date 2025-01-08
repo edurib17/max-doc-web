@@ -28,7 +28,7 @@ Siga as etapas abaixo para configurar e executar o MaxDocWeb:
 
 1. **Clone o repositório**:
    ```bash
-   git clone https://github.com/seu-usuario/maxdocweb.git
+   git clone https://github.com/edurib17/max-doc-web.git
    cd maxdocweb
    ```
 
