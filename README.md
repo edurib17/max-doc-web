@@ -1,6 +1,6 @@
 # 🌟 MaxDocWeb
 
-MaxDocWeb é um projeto inovador desenvolvido em Angular 9 para gerenciar documentos de forma eficiente e intuitiva. Ele oferece recursos modernos para organização, controle e manutenção de arquivos diretamente por meio de uma interface web amigável.
+MaxDocWeb é uma aplicação em Angular 9 para gerenciar documentos de forma simples e eficiente. Com uma interface web amigável, ele permite organizar, controlar e manter arquivos facilmente.
 
 ---
 
