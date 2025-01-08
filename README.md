@@ -1,27 +1,53 @@
-# MaxDocWeb
+# 🌟 MaxDocWeb
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.15.
+MaxDocWeb é um projeto inovador desenvolvido em Angular 9 para gerenciar documentos de forma eficiente e intuitiva. Ele oferece recursos modernos para organização, controle e manutenção de arquivos diretamente por meio de uma interface web amigável.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## 📋 Requisitos
+Para rodar o MaxDocWeb, certifique-se de que seu ambiente está configurado corretamente com os seguintes requisitos:
 
-## Code scaffolding
+- **Angular CLI 9**: Garanta que a versão 9 do Angular CLI esteja instalada. Caso não tenha, instale utilizando:
+  ```bash
+  npm install -g @angular/cli@9
+  ```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Node.js 12 LTS**: Verifique a versão instalada com:
+  ```bash
+  node -v
+  ```
+  Caso precise atualizar ou instalar o Node.js, acesse: [Node.js Downloads](https://nodejs.org/)
 
-## Build
+- **Gerenciador de Pacotes**: Use **NPM** ou **Yarn** para instalar as dependências do projeto.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+---
 
-## Running unit tests
+## 🚀 Configuração e Execução
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Siga as etapas abaixo para configurar e executar o MaxDocWeb:
 
-## Running end-to-end tests
+1. **Clone o repositório**:
+   ```bash
+   git clone https://github.com/seu-usuario/maxdocweb.git
+   cd maxdocweb
+   ```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+2. **Instale as dependências**:
+   ```bash
+   npm install
+   ```
 
-## Further help
+3. **Inicie o servidor de desenvolvimento**:
+   ```bash
+   ng serve
+   ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+4. **Acesse a aplicação no navegador**:
+   Abra o navegador e acesse:
+   ```
+   http://localhost:4200/
+   ```
+
+---
+💻 **MaxDocWeb - Organize seus documentos com facilidade!**
+
