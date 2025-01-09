@@ -54,7 +54,7 @@
           <th scope="col">Gerar Nova Versão</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody [hidden]="isLoading">
         <tr *ngFor="let document of documents">
           <td>{{ document.title }}</td>
           <td>{{ document.description }}</td>
